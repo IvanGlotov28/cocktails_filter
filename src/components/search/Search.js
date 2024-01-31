@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { AsyncPaginate } from 'react-select-async-paginate'
-import styles from './Search.module.css'
+import './Search.css'
 import { cocktailByNameURL, cocktailsApiOptions } from '../api'
 
-const Search = () => {
+const Search = ({ onSelectionChange }) => {
   const [search, setSearch] = useState(null)
 
   const loadOptions = async (inputValue) => {
@@ -13,9 +13,12 @@ const Search = () => {
         cocktailsApiOptions
       )
       const data = await response.json()
+      console.log(data)
 
       const formattedOptions = data.drinks.map((drink) => {
         return {
+          value: drink.strDrink,
+          label: drink.strDrink,
           drink,
         }
       })
@@ -26,13 +29,13 @@ const Search = () => {
       console.log('Error fetching data')
     }
 
-    return {
-      options: [],
-    }
+    return { options: [] }
   }
 
   const handleOnchange = (searchData) => {
+    console.log(searchData)
     setSearch(searchData)
+    onSelectionChange(searchData)
   }
 
   return (
@@ -42,9 +45,25 @@ const Search = () => {
       value={search}
       onChange={handleOnchange}
       loadOptions={loadOptions}
-      classNamePrefix={styles.customAsyncPaginate}
+      className="inp"
     />
   )
 }
 
 export default Search
+
+// styles={{
+//   input: (baseStyles) => ({
+//     ...baseStyles,
+//     color: 'black',
+//     fontSize: '20px',
+//   }),
+//   select: (baseStyles) => ({
+//     ...baseStyles,
+//     color: 'black',
+//   }),
+//   menu: (baseStyles) => ({
+//     ...baseStyles,
+//     color: 'black',
+//   }),
+// }}
