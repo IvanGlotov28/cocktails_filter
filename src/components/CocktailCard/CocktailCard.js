@@ -17,7 +17,6 @@ import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
 const CocktailCard = ({ selectedData }) => {
   const { drink } = selectedData || {}
   console.log(selectedData)
-
   const ingredientsList = (drink) => {
     let currentIngredientNum = 1
     const allIngredients = []

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { AsyncPaginate } from 'react-select-async-paginate'
 import './Search.css'
-import { cocktailByNameURL, cocktailsApiOptions } from '../api'
+import { cocktailByName_URL, cocktailsApiOptions } from '../api'
 
 const Search = ({ onSelectionChange }) => {
   const [search, setSearch] = useState(null)
@@ -9,7 +9,7 @@ const Search = ({ onSelectionChange }) => {
   const loadOptions = async (inputValue) => {
     try {
       const response = await fetch(
-        `${cocktailByNameURL}${inputValue}`,
+        `${cocktailByName_URL}${inputValue}`,
         cocktailsApiOptions
       )
       const data = await response.json()
@@ -32,6 +32,7 @@ const Search = ({ onSelectionChange }) => {
     return { options: [] }
   }
 
+  
   const handleOnchange = (searchData) => {
     console.log(searchData)
     setSearch(searchData)
@@ -51,19 +52,3 @@ const Search = ({ onSelectionChange }) => {
 }
 
 export default Search
-
-// styles={{
-//   input: (baseStyles) => ({
-//     ...baseStyles,
-//     color: 'black',
-//     fontSize: '20px',
-//   }),
-//   select: (baseStyles) => ({
-//     ...baseStyles,
-//     color: 'black',
-//   }),
-//   menu: (baseStyles) => ({
-//     ...baseStyles,
-//     color: 'black',
-//   }),
-// }}
