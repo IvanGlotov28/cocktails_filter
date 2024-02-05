@@ -26,7 +26,7 @@ const Search = ({ onSelectionChange }) => {
 
       return { options: formattedOptions }
     } catch (error) {
-      console.log('Error fetching data', error.message)
+      console.log('Error fetching data', error.message )
     }
 
     return { options: [] }

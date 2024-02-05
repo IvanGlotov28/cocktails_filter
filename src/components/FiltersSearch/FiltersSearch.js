@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { AsyncPaginate } from 'react-select-async-paginate'
 import { filtersCocktails_URL, cocktailsApiOptions } from '../api'
+import selectionCriterion from './selectionCriteria'
+import './FiltersSearch.css'
 
-const FiltersSearch = ({ сheckedBox }) => {
+const FiltersSearch = ({ сheckedBox, onSelectionFilterChange }) => {
   const [filtersSearch, setFiltersSearch] = useState(null)
-
   const loadOptions = async () => {
     try {
       const response = await fetch(
@@ -12,26 +13,34 @@ const FiltersSearch = ({ сheckedBox }) => {
         cocktailsApiOptions
       )
 
-      console.log(response)
       const data = await response.json()
+      console.log(data)
+
       const formattedOptions = data.drinks.map((item) => {
+        const objProp = selectionCriterion(сheckedBox)
         return {
-          //тільки для стаканів
-          value: item.strGlass,
-          label: item.strGlass,
+          value: item[objProp],
+          label: item[objProp],
         }
       })
+
       return { options: formattedOptions }
     } catch (error) {
       console.log('Error fetching data:', error.message)
+      return { options: [] }
     }
-
-    return { options: [] }
   }
+
+  useEffect(() => {
+    loadOptions()
+  }, [сheckedBox])
 
   const handleOnchange = (searchData) => {
     setFiltersSearch(searchData)
+    onSelectionFilterChange(searchData)
+    console.log(searchData)
   }
+
   return (
     <AsyncPaginate
       placeholder="Search cocktail"
@@ -39,6 +48,7 @@ const FiltersSearch = ({ сheckedBox }) => {
       value={filtersSearch}
       loadOptions={loadOptions}
       onChange={handleOnchange}
+      className="small-inp"
     />
   )
 }
