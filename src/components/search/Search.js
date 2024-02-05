@@ -26,13 +26,12 @@ const Search = ({ onSelectionChange }) => {
 
       return { options: formattedOptions }
     } catch (error) {
-      console.log('Error fetching data')
+      console.log('Error fetching data', error.message)
     }
 
     return { options: [] }
   }
 
-  
   const handleOnchange = (searchData) => {
     console.log(searchData)
     setSearch(searchData)

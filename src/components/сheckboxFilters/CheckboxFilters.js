@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Flex, Checkbox, Heading } from '@chakra-ui/react'
 
-const ListOfFilters = ({onCheckedBox}) => {
+const CheckboxFilters = ({ onCheckedBox }) => {
   const [checkedValue, setCheckedValue] = useState(null)
 
   const handleCheckboxChange = (value) => {
@@ -82,4 +82,4 @@ const ListOfFilters = ({onCheckedBox}) => {
   )
 }
 
-export default ListOfFilters
+export default CheckboxFilters

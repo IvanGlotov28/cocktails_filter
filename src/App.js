@@ -3,7 +3,9 @@ import './App.css'
 import { Grid, GridItem } from '@chakra-ui/react'
 import Search from './components/search/Search'
 import CocktailCard from './components/CocktailCard/CocktailCard'
-import ListOfFilters from './components/listOfFilters/listOfFilters'
+import CheckboxFilters from './components/сheckboxFilters/CheckboxFilters'
+import FiltersSearch from './components/FiltersSearch/FiltersSearch'
+
 
 function App() {
   const [selectedData, setSelectedData] = useState(null)
@@ -28,13 +30,14 @@ function App() {
         <GridItem gridArea="1 / 3 / 2 / 4;">
           <Search onSelectionChange={handleSelectionChange} />
         </GridItem>
+
         <GridItem gridArea=" 2 / 1 / 3 / 2;">
-          <ListOfFilters onCheckedBox={handleCheckedBox} />
+          <CheckboxFilters onCheckedBox={handleCheckedBox} />
+          <FiltersSearch сheckedBox={сheckedBox} />
         </GridItem>
+
         <GridItem gridArea=" 2 / 3 / 3 / 4;">
-          {selectedData && (
-            <CocktailCard  selectedData={selectedData} />
-          )}
+          {selectedData && <CocktailCard selectedData={selectedData} />}
         </GridItem>
       </Grid>
     </div>
