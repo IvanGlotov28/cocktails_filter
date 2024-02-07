@@ -1,64 +1,27 @@
-import { useState } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { useState, createContext, useContext } from 'react'
 import './App.css'
-import { Grid, GridItem } from '@chakra-ui/react'
-import Search from './components/search/Search'
-import CocktailCard from './components/CocktailCard/CocktailCard'
-import CheckboxFilters from './components/сheckboxFilters/CheckboxFilters'
-import FiltersSearch from './components/FiltersSearch/FiltersSearch'
-import SearchByFilter from './components/searchByFilter/SearchByFilter'
+import Home from './components/Home/Home'
+import CocktailPage from './components/CocktailPage/CocktailPage'
 
+export const CocktailContext = createContext()
 function App() {
-  const [selectedData, setSelectedData] = useState(null)
-  const [сheckedBox, setCheckedBox] = useState(null)
-  const [selectedFilterData, setSelectedFilterData] = useState(null)
-
-  const handleSelectionChange = (selectedData) => {
-    setSelectedData(selectedData)
-  }
-
-  const handleCheckedBox = (сheckedBox) => {
-    setCheckedBox(сheckedBox)
-  }
-
-  const handleSelectionFilterChange = (selectedFilterData) => {
-    setSelectedFilterData(selectedFilterData)
-  }
-
+  const [cocktailID, setCocktailID] = useState(null)
+  const [cocktailInfo, setCocktailInfo] = useState(null)
+  console.log(cocktailInfo)
   return (
-    <div className="App">
-      <Grid
-        gridTemplateColumns="repeat(5, 1fr)"
-        gridTemplateRows="repeat(1, 1fr)"
-        gridColumnGap="0"
-        gridRowGap="0"
+    <BrowserRouter>
+      <CocktailContext.Provider
+        value={{ cocktailID, setCocktailID, cocktailInfo, setCocktailInfo }}
       >
-        <GridItem gridArea="1 / 3 / 2 / 4;">
-          {!selectedFilterData ? (
-            <Search onSelectionChange={handleSelectionChange} />
-          ) : (
-            <SearchByFilter
-              сheckedBox={сheckedBox}
-              onSelectionChange={handleSelectionChange}
-              selectedFilterData={selectedFilterData}
-            />
-          )}
-        </GridItem>
-
-        <GridItem gridArea=" 2 / 1 / 3 / 2;">
-          <CheckboxFilters onCheckedBox={handleCheckedBox} />
-          {сheckedBox && (
-            <FiltersSearch
-              onSelectionFilterChange={handleSelectionFilterChange}
-              сheckedBox={сheckedBox}
-            />
-          )}
-        </GridItem>
-
-        <GridItem gridArea=" 2 / 3 / 3 / 4;">
-          {selectedData && <CocktailCard selectedData={selectedData} />}
-        </GridItem>
-      </Grid>
-    </div>
+        <div className="App">
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route path={`${cocktailID}`} element={<CocktailPage />} />
+          </Routes>
+        </div>
+      </CocktailContext.Provider>
+    </BrowserRouter>
   )
 }
 export default App

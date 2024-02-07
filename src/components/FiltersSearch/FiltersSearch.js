@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { AsyncPaginate } from 'react-select-async-paginate'
-import { filtersCocktails_URL, cocktailsApiOptions } from '../api'
-import selectionCriterion from './selectionCriteria'
+import { filtersCocktails_URL, cocktailsApiOptions } from '../../utils/api'
+import selectionCriterion from '../../utils/selectionCriteria'
 import './FiltersSearch.css'
 
 const FiltersSearch = ({ сheckedBox, onSelectionFilterChange }) => {

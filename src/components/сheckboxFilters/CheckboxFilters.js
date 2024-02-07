@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Flex, Checkbox, Heading } from '@chakra-ui/react'
 
-const CheckboxFilters = ({ onCheckedBox }) => {
+const CheckboxFilters = ({ onCheckedBox, reset, setReset }) => {
   const [checkedValue, setCheckedValue] = useState(null)
   const [hiddenCheckboxes, setHiddenCheckboxes] = useState([])
 
+  console.log(reset)
   const filterСriteria = ['c', 'g', 'i', 'a']
 
   const handleCheckboxChange = (value) => {
@@ -18,6 +19,14 @@ const CheckboxFilters = ({ onCheckedBox }) => {
       onCheckedBox(value)
     }
   }
+
+  useEffect(() => {
+    if (reset) {
+      setCheckedValue(null)
+      setHiddenCheckboxes([])
+      setReset(false)
+    }
+  }, [reset])
 
   return (
     <Flex
@@ -43,6 +52,9 @@ const CheckboxFilters = ({ onCheckedBox }) => {
           padding="7px"
           borderRadius="5px"
           value={value}
+          _hover={{
+            textDecoration: 'underline',
+          }}
           display={hiddenCheckboxes.includes(value) ? 'none' : 'block'}
         >
           {value === 'c'

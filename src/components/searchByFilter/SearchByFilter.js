@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { AsyncPaginate } from 'react-select-async-paginate'
 import '../search/Search'
 import {
   searchByFilter_URL,
   cocktailByName_URL,
   cocktailsApiOptions,
-} from '../api'
+} from '../../utils/api'
 
 const SearchByFilter = ({
   onSelectionChange,
@@ -21,7 +21,6 @@ const SearchByFilter = ({
         cocktailsApiOptions
       )
       const data = await response.json()
-      console.log(data)
 
       const formattedOptions = data.drinks.map((drink) => {
         return {
@@ -30,7 +29,6 @@ const SearchByFilter = ({
           drink,
         }
       })
-     
 
       return { options: formattedOptions }
     } catch (error) {
@@ -47,7 +45,6 @@ const SearchByFilter = ({
         cocktailsApiOptions
       )
       const data = await response.json()
-      console.log(data)
       const formattedOptions = data.drinks.map((drink) => {
         return {
           label: drink.strDrink,
@@ -55,7 +52,6 @@ const SearchByFilter = ({
           drink,
         }
       })
-      console.log(formattedOptions[0])
       onSelectionChange(formattedOptions[0])
       return { options: formattedOptions }
     } catch (error) {
@@ -66,13 +62,10 @@ const SearchByFilter = ({
 
   const handleOnchange = (searchData) => {
     setSearch(searchData)
-    
+
     getFullData(searchData)
   }
 
-  useEffect(() => {
-    loadOptions()
-  }, [сheckedBox, selectedFilterData])
   return (
     <AsyncPaginate
       placeholder="Search cocktail by filter"
@@ -81,6 +74,7 @@ const SearchByFilter = ({
       onChange={handleOnchange}
       loadOptions={loadOptions}
       className="inp"
+      cacheUniqs={[selectedFilterData]}
     />
   )
 }

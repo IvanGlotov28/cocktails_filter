@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { AsyncPaginate } from 'react-select-async-paginate'
 import './Search.css'
-import { cocktailByName_URL, cocktailsApiOptions } from '../api'
+import { cocktailByName_URL, cocktailsApiOptions } from '../../utils/api'
 
 const Search = ({ onSelectionChange }) => {
   const [search, setSearch] = useState(null)
@@ -26,7 +26,7 @@ const Search = ({ onSelectionChange }) => {
 
       return { options: formattedOptions }
     } catch (error) {
-      console.log('Error fetching data', error.message )
+      console.log('Error fetching data', error.message)
     }
 
     return { options: [] }
