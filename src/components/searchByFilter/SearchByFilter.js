@@ -13,6 +13,7 @@ const SearchByFilter = ({
   selectedFilterData,
 }) => {
   const [search, setSearch] = useState(null)
+
   const loadOptions = async () => {
     try {
       const response = await fetch(
@@ -29,7 +30,7 @@ const SearchByFilter = ({
           drink,
         }
       })
-      console.log(formattedOptions)
+     
 
       return { options: formattedOptions }
     } catch (error) {
@@ -49,8 +50,8 @@ const SearchByFilter = ({
       console.log(data)
       const formattedOptions = data.drinks.map((drink) => {
         return {
-          value: drink.strDrink,
           label: drink.strDrink,
+          value: drink.strDrink,
           drink,
         }
       })
@@ -65,16 +66,12 @@ const SearchByFilter = ({
 
   const handleOnchange = (searchData) => {
     setSearch(searchData)
-    console.log(searchData)
+    
     getFullData(searchData)
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      await loadOptions()
-    }
-
-    fetchData()
+    loadOptions()
   }, [сheckedBox, selectedFilterData])
   return (
     <AsyncPaginate
